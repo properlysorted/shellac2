@@ -1,0 +1,143 @@
+<div style="background-image: url('{{main.pathToImages}}navy_blue_background.png');">
+    
+    <div id="content_left_col">
+        &nbsp;
+    </div>
+
+
+    <div id="content_right_col">
+        <div id="artist_bio_container">
+            <div id="abc_left_column">
+                <img ng-if="hasImage(shellac.image.src)" src="{{shellac.image.src}}" />
+            </div>
+            <div id="abc_right_column">
+                <h3 style="margin-top: 0px; padding-top: 0px;">{{shellac.name}}</h3>
+            
+                <p>
+                    <label>Birth Date</label> {{shellac.birth}}
+                </p>
+
+                <p>
+                    <label>Death Date</label> {{shellac.death}}
+                </p>
+            </div>
+            <br style="clear: both;" />
+        </div>
+        
+        <div id="artist_featured_text">
+            {{shellac.featuredtext}}
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Media and Files</h3>
+            </div>
+            <table class="table table-striped">
+                <tr ng-repeat="media in shellac.mediaportal">
+                    <td>
+                        <span ng-if="isExternalResource(media.description)">
+                            <a href="{{media.description|extractLinkURL}}" target="_blank">{{media.description|extractLinkLabel}}</a>
+                        </span>
+                        <span ng-if="isExternalResource(media.description, 'reversed')">
+                            {{media.description}}
+                        </span>
+                        <span ng-if="showMediaLink(media.file.src, 'pdf')"><a href="{{media.file.src}}" target="_blank">[View PDF]</a></span>
+                        <span ng-if="showMediaLink(media.file.src, 'image')"><a href="{{media.file.src}}" target="_blank">[View Image]</a></span>
+                        <span ng-if="showMediaLink(media.file.src, 'audio')">
+                            <audio controls />
+                                <source src="{{media.file.src}}" type="audio/mpeg" />
+                                Your browser does not support the audio element.
+                            </audio>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br />
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Names and Aliases</h3>
+            </div>
+            <table class="table table-striped">
+                <tr ng-repeat="a in shellac.namesportal">
+                    <td><ng-model="a.webname">{{a.webname}}</td>
+                </tr>
+            </table>
+        </div>
+        <br />
+        
+        <div id="sort_buttons">
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='composersort'; orderByArg2='title'; orderByArg3='';">Comp/Title</a></p>
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='dTake'; orderByArg2='absmatrix'; orderByArg3='';">Date/Mx</a></p>
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='company'; orderByArg2='absmatrix'; orderByArg3='dTake';">Co/Mx/Date</a></p>
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='company'; orderByArg2='dTake'; orderByArg3='absmatrix';">Co/Date/Mx</a></p>
+            <br style="clear: both;" />
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Takes</h3>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            Company<br />
+                            <span style="font-weight: normal;">Matrix</span>
+                        </th>
+                        <th>
+                            Date<br />
+                            <span style="font-weight: normal;">Place</span>
+                        </th>
+                        <th>
+                            Composer<br />
+                            <span style="font-weight: normal;">Title</span>
+                        </th>
+                        <th>
+                            Role<br />
+                            Audio
+                        </th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="a in shellac.takesportal|orderBy:[orderByArg1,orderByArg2,orderByArg3]|slice:listOffset:listEnd">
+                    <td>
+                        <a href="#/take/{{a._fkTakeId}}" class="btn btn-primary btn-xs">View Details</a>
+                    </td>
+                    <td>
+                        <ng-model="a.company"><b>{{a.company}}</b><br />
+                        <ng-model="a.matrix">{{a.matrix}}
+                    </td>
+                    <td>
+                        <ng-model="a.date"><b>{{a.date}}</b><br />
+                        <ng-model="a.place">{{a.place}}
+                    </td>
+                    <td>
+                        <ng-model="a.composer"><b>{{a.composer}}</b><br />
+                        <ng-model="a.title">{{a.title}}
+                    </td>
+                    <td>
+                        <b>{{a.role}}</b><br />
+                        <span ng-if="a.audio"><a href="#/take/{{a._fkTakeId}}"><img src="{{main.pathToImages}}audio.png" /></a></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;" colspan="5">
+                        <span ng-if="showHidePrev()">&lt;&lt; <a href ng-click="pageBack()">Previous Takes</a></span>
+                        &nbsp; &nbsp;
+                        <span ng-if="showHideNext(shellac.takesportal.length)"><a href ng-click="pageForward()">Next Takes</a> &gt;&gt;</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div style="float: right;">
+            <a ng-if="showHidePrevNext(prevArtistID)" href="#/artists/{{prevArtistID}}?sn={{selectedNationality}}&sr={{selectedRole}}&obf={{orderByField}}&rs={{reverseSort}}">&lt;&lt; Previous Arist</a>
+            &nbsp; &nbsp;
+            <a ng-if="showHidePrevNext(nextArtistID)" href="#/artists/{{nextArtistID}}?sn={{selectedNationality}}&sr={{selectedRole}}&obf={{orderByField}}&rs={{reverseSort}}">Next Artist &gt;&gt;</a>
+        </div>
+        
+    </div>
+    <br style="clear: both;" />
+</div>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
+<!--    <script src="https://rawgit.com/360works/fmangular/master/src/fmangular.js"></script>-->
+    <script src="js/fmangular.0.0.2.js"></script>
+    <script src="js/shellac-app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/shellac-app.css" />
+    
+    <script type="text/javascript">
+        //  Add infinite scrolling to Artist List View
+        $(function () {
+            if ($('#artist_table_container')) {
+                var $win = $(window);
+                $win.scroll(function () {
+                    if (($win.height() + $win.scrollTop()) >= ($(document).height() - 200)) {
+                        angular.element(document.getElementById('artist_table_container')).scope().pageForward();
+                        angular.element(document.getElementById('artist_table_container')).scope().$apply();
+                    }
+                });
+            }
+            
+            if ($('#music_table_container')) {
+                var $win = $(window);
+                $win.scroll(function () {
+                    if (($win.height() + $win.scrollTop()) >= ($(document).height() - 300)) {
+                        angular.element(document.getElementById('music_table_container')).scope().pageForward();
+                        angular.element(document.getElementById('music_table_container')).scope().$apply();
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+
+<body ng-app="ShellacApp">
+    <div id="content_wrapper" ng-controller="MainCtrl as main" style="background-image: url('{{main.pathToImages}}navy_blue_background.png');">
+        <div id="header">
+            <h1>Shellac!</h1>
+        </div>
+        <div id="navbar" style="background-image: url('{{main.pathToImages}}light_blue_background.png');">
+            <img src="{{main.pathToImages}}light_blue_curve.png" width="14" height="26" />
+            <a href="#/">Home</a>
+            <a href="#/artists">Artists</a>
+            <a href="#/take">Take</a>
+            <a href="#/search">Search</a>
+        </div>
+        <div id="transition">
+            <img src="{{main.pathToImages}}blue_transition.png" width="199" height="29" />
+        </div>
+        
+        <div ng-view=""></div>
+        <br style="clear: both;" />
+    </div>
+</body>
+</html>

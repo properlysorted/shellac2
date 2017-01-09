@@ -1,0 +1,126 @@
+<div style="background-image: url('{{main.pathToImages}}navy_blue_background.png');">
+
+    <div id="content_left_col">
+        &nbsp;
+    </div>
+    
+    
+    <div id="content_right_col">
+
+        <p style="margin-left: 5px;">Search through artists or takes based on the criteria you enter below.</p>
+        
+        <div>
+            <div class="input_label"><label>Name</label></div>
+            <div class="input_field">
+                <input type="text" name="artist_name" id="artist_name" ng-model="artistName" ng-value="artist_name" />
+            </div>
+            <br style="clear: both;" />
+        </div>
+        
+        <div>
+            <div class="input_label"><label>Title</label></div>
+            <div class="input_field">
+                <input type="text" name="track_title" id="track_title" ng-model="trackTitle" ng-value="track_title" />
+            </div>
+            <br style="clear: both;" />
+        </div>
+        
+        <div>
+            <div class="input_label"><label>Start Year</label></div>
+            <div class="input_field">
+                <input type="text" name="start_year" id="start_year" ng-model="startYear" ng-value="start_year" />
+            </div>
+            <br style="clear: both;" />
+        </div>
+        
+        <div>
+            <div class="input_label"><label>End Year</label></div>
+            <div class="input_field">
+                <input type="text" name="end_year" id="end_year" ng-model="endYear" ng-value="end_year" />
+            </div>
+            <br style="clear: both;" />
+        </div>
+        
+        <div style="margin: 20px 0px 20px 5px;">
+            <a href="javascript:;" ng-click="searchArtists(artistName, trackTitle, startYear, endYear)" class="btn btn-primary btn-xs" style="float: left;">Show Me Names</a>
+            <a href="javascript:;" ng-click="searchTakes(artistName, trackTitle, startYear, endYear)" class="btn btn-primary btn-xs" style="float: left; margin-left: 10px;">Show Me Takes</a>
+            <a href="javascript:;" ng-click="clearFields()" class="btn btn-primary btn-xs" style="float: left; margin-left: 10px;">Clear</a>
+            <br style="clear: both;" />
+        </div>
+        
+        <table ng-if="displayArtistResults" id="artist_table" class="table table-striped" style="width: 100%; margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>
+                        <a href ng-click="orderByField='name'; reverseSort = setReverseSort('name', 'asc', reverseSort)">Name</a>
+                    </th>
+                    <th>
+                        <a href ng-click="orderByField='birth'; reverseSort = setReverseSort('birth', 'desc', reverseSort)">Date of Birth</a>
+                    </th>
+                    <th>
+                        <a href ng-click="orderByField='death'; reverseSort = setReverseSort('death', 'desc', reverseSort)">Date of Death</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="artist in artists|filter:artistQuery|orderBy:orderByField:reverseSort">
+                    <td><a href="#/artists/{{artist.$recid}}">{{artist.name}}</a></td>
+                    <td>{{artist.birth}}</td>
+                    <td>{{artist.death}}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div id="sort_buttons" style="visibility: hidden;">
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='composer'; orderByArg2='title'; orderByArg3='';">Comp/Title</a></p>
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='dTake'; orderByArg2='matrix'; orderByArg3='';">Date/Mx</a></p>
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='company'; orderByArg2='matrix'; orderByArg3='dTake';">Co/Mx/Date</a></p>
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='company'; orderByArg2='dTake'; orderByArg3='matrix';">Co/Date/Mx</a></p>
+            <br style="clear: both;" />
+        </div>
+        
+        <table ng-if="displayTrackResults" id="track_table" class="table table-striped" style="margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>
+                        Mfg. Company<br />
+                        Matrix
+                    </th>
+                    <th>
+                        Venue<br />
+                        Rec. Date
+                    </th>
+                    <th>
+                        Composer<br />
+                        Title
+                    </th>
+                    <th>
+                        Details
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="track in tracks|filter:acmeFilter|filter:trackQuery|orderBy:[orderByArg1,orderByArg2,orderByArg3]">
+                    <td>
+                        <a href="#/take/{{track.$recid}}" class="btn btn-primary btn-xs">View Details</a>
+                    </td>
+                    <td>
+                        <span class="bold"><a href="#/take/{{track.$recid}}">{{track.company}}</a></span><br />
+                        {{track.matrix}}
+                    </td>
+                    <td>
+                        <span class="bold">{{track.place}}</span><br />
+                        {{track.date}}<!--{{track.date|formatFMDate}}-->
+                    </td>
+                    <td>
+                        <span class="bold">{{track.composer}}</span><br />
+                        {{track.title}}
+                    </td>
+                    <td>{{track.details}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br style="clear: both;" />
+</div>

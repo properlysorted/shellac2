@@ -1,0 +1,85 @@
+<div style="background-image: url('{{main.pathToImages}}navy_blue_background.png');">
+    <div id="content_left_col">
+        Company<br />
+        <select id="music_company"
+                ng-model="filterMusicCompanies"
+                ng-options="company.label for company in companies track by company.value"
+                ng-change="selectedCompany = filterMusicCompanies.value">
+        </select><br />
+        
+        Composer<br />
+        <select id="music_composer"
+                ng-model="filterMusicComposers"
+                ng-options="composer.label for composer in composers track by composer.value"
+                ng-change="selectedComposer = filterMusicComposers.value">
+        </select><br />
+        
+        Place<br />
+        <select id="music_venue"
+                ng-model="filterMusicVenues"
+                ng-options="venue.label for venue in venues track by venue.value"
+                ng-change="selectedVenue = filterMusicVenues.value">
+        </select>
+    </div>
+
+    
+    <div id="content_right_col">
+        <div id="sort_buttons">
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='composer'; orderByArg2='title'; orderByArg3='';">Comp/Title</a></p>
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='dTake'; orderByArg2='absmatrix'; orderByArg3='';">Date/Mx</a></p>
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='company'; orderByArg2='absmatrix'; orderByArg3='dTake';">Co/Mx/Date</a></p>
+            <p class="lead"><a href class="btn btn-primary btn-xs" ng-click="orderByArg1='company'; orderByArg2='dTake'; orderByArg3='absmatrix';">Co/Date/Mx</a></p>
+            <br style="clear: both;" />
+        </div>
+        
+        <div id="music_table_container">
+            <table id="music_table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            Mfg. Company<br />
+                            Matrix
+                        </th>
+                        <th>
+                            Place<br />
+                            Rec. Date
+                        </th>
+                        <th>
+                            Composer<br />
+                            Title
+                        </th>
+                        <th>
+                            Details<br />
+                            Audio
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in shellac|filter:acmeFilter|filter:limitCompanyTo|filter:limitComposerTo|filter:limitVenueTo|orderBy:[orderByArg1,orderByArg2,orderByArg3]|slice:listOffset:listEnd">
+                        <td>
+                            <a href="#/take/{{x.$recid}}?coy={{selectedCompany}}&com={{selectedComposer}}&ven={{selectedVenue}}&obf={{orderByArg1}},{{orderByArg2}},{{orderByArg3}}" class="btn btn-primary btn-xs">View Details</a>
+                        </td>
+                        <td>
+                            <span class="bold">{{x.company}}</span><br />
+                            {{x.matrix}}
+                        </td>
+                        <td>
+                            <span class="bold">{{x.place}}</span><br />
+                            {{x.date}}<!--{{x.date|formatFMDate}}--><br />
+                        </td>
+                        <td>
+                            <span class="bold">{{x.composer}}</span><br />
+                            {{x.title}} 
+                        </td>
+                        <td>
+                            {{x.details}}<br />
+                            <span ng-if="x.audio"><a href="#/take/{{x.$recid}}?coy={{selectedCompany}}&com={{selectedComposer}}&ven={{selectedVenue}}&obf={{orderByArg1}},{{orderByArg2}},{{orderByArg3}}"><img src="{{main.pathToImages}}audio.png" /></a></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br style="clear: both;" />
+</div>

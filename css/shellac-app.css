@@ -1,0 +1,174 @@
+#content_wrapper {
+    width: 960px;
+    height: 122px;
+    margin: 35px auto 0px auto;
+    background-repeat: repeat;
+    border-top: 4px solid #f3b945;
+}
+
+#content_wrapper h1 {
+    margin-left: 46px;
+    font-family: Arial, sans-serif;
+    font-size: 38px;
+    color: #f3b945;
+}
+
+#navbar {
+    height: 26px;
+    float: right;
+    background-repeat: repeat;
+    margin-bottom: 2px;
+}
+
+#navbar a, #navbar a:hover {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #1d387a;
+    text-decoration: none;
+    margin: 0px 17px;
+}
+
+#transition {
+    background: #ffffff;
+    clear: both;
+    height: 29px;
+    width: 100%;
+}
+
+#content_left_col {
+    float: left;
+    width: 170px;
+    padding-left: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+#content_left_col select {
+    width: 150px;
+    background: #ffffff;
+    color: #222222;
+}
+
+#content_right_col {
+    float: left;
+    width: 790px;
+    min-height: 150px;
+    background: #ffffff;
+}
+
+#hp_content {
+    width: 780px;
+    margin-left: 5px;
+}
+
+#featured_artist {
+    margin: 20px 0px 5px 5px;
+    font-weight: bold;
+}
+
+#featured_image {
+    float: left;
+    padding: 0px 10px 10px 5px;
+}
+
+#featured_text {
+    margin-left: 5px;
+    margin-bottom: 20px;
+}
+
+#artist_table_container {
+    margin-bottom: 30px;
+}
+
+#artist_table, #music_table {
+    width: 780px;
+    margin-left: 5px;
+}
+
+#sort_buttons p {
+    float: right;
+    margin-left: 10px;
+}
+
+#artist_bio_container {
+    margin-left: 5px;
+}
+
+#abc_left_column {
+    float: left;
+}
+
+#abc_right_column {
+    float: left;
+    padding-left: 10px;
+}
+
+#abc_right_column p, #abc_right_column {
+    margin: 0px;
+}
+
+#artist_featured_text {
+    margin: 10px 0px 10px 5px;
+}
+
+#music_detail_overview {
+    margin-left: 5px;
+}
+
+.input_label {
+    float: left;
+    width: 150px;
+    margin-left: 5px;
+}
+
+.input_field {
+    float: left;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.link_no_link, .link_no_link:hover {
+    text-decoration: none;
+    color: #333333;
+}
+
+.panel {
+    margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+/*form input.ng-invalid.ng-dirty {
+	background-color: #FA787E;
+}
+
+.fm-container {
+	width: 250px;
+	height:250px;
+	border: 1px silver;
+	background-color: white;
+	overflow: hidden;
+	white-space: nowrap;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.fm-container img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.fm-container.active {
+	border-color:red;
+}*/

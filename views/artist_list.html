@@ -1,0 +1,51 @@
+<div style="background-image: url('{{main.pathToImages}}navy_blue_background.png');">
+    <div id="content_left_col">
+        Artist Nationality<br />
+        <select id="artist_nationality"
+                ng-model="filterArtistNationalities"
+                ng-options="nationality.label for nationality in filterableNationalities track by nationality.value"
+                ng-change="selectedNationality = filterArtistNationalities.value">
+        </select><br />
+        
+        Artist Role<br />
+        <select id="artist_role"
+                ng-model="filterArtistRoles"
+                ng-options="role.label for role in artistRoles track by role.value"
+                ng-change="selectedRole = filterArtistRoles.value">
+        </select>
+    </div>
+    
+    
+    <div id="content_right_col">
+        <div id="artist_table_container">
+            <table id="artist_table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href ng-click="orderByField='name'; reverseSort = setReverseSort('name', 'asc', reverseSort)">Name</a>
+                        </th>
+                        <th>
+                            <a href ng-click="orderByField='birth'; reverseSort = setReverseSort('birth', 'desc', reverseSort)">Date of Birth</a>
+                        </th>
+                        <th>
+                            <a href ng-click="orderByField='death'; reverseSort = setReverseSort('death', 'desc', reverseSort)">Date of Death</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in shellac|filter:limitCountryTo|filter:limitRoleTo|orderBy:orderByField:reverseSort|slice:listOffset:listEnd">
+                        <td><a href="#/artists/{{x.$recid}}?sn={{selectedNationality}}&sr={{selectedRole}}&obf={{orderByField}}&rs={{reverseSort}}">{{x.name}}</a></td>
+                        <td>{{x.birth}}</td>
+                        <td>{{x.death}}</td>
+                    </tr>
+                    <!-- Un-hide to switch to manual pagination as opposed to infinite scrolling  -->
+                    <tr style="display: none;">
+                        <td style="text-align: left;">&lt;&lt; <a href ng-click="pageBack()">Prev</a></td>
+                        <td style="text-align: right;" colspan="2"><a href ng-click="pageForward()">Next</a> &gt;&gt;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br style="clear: both;" />
+</div>

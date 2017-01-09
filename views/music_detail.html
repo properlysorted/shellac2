@@ -1,0 +1,120 @@
+<div style="background-image: url('{{main.pathToImages}}navy_blue_background.png');">
+    
+    <div id="content_left_col">
+        &nbsp;
+    </div>
+
+
+    <div id="content_right_col">
+        <div id="music_detail_left_col" style="float: left; width: 47%;">
+            <div id="music_detail_overview">
+                <label>Date</label> {{shellac.date}}<!--{{shellac.date|formatFMDate}}--><br />
+            
+                <label>Place</label> {{shellac.place}}<br />
+            
+                <label>Company</label> {{shellac.company}}<br />
+            
+                <label>Matrix</label> {{shellac.tMatrix}}<br />
+                
+                <label>Length</label> {{shellac.length}}
+            </div>
+            
+            <div class="panel panel-default" style="margin-top: 30px;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Artists</h3>
+                </div>
+                <table class="table table-striped">
+                    <tr ng-repeat="a in shellac.joinportal|orderBy:artist">
+                        <td>
+                            <ng-model="a.artist"><b><a href="#/artists/{{a._fkArtistId}}">{{a.artist}}</a></b>
+                        </td>
+                        <td>
+                            <ng-model="a.role"><b><a href="#/artists/{{a._fkArtistId}}">{{a.role}}</a></b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="panel panel-default" style="margin-top: 30px;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Media</h3>
+                </div>
+                <table class="table table-striped">
+                    <tr ng-repeat="media in shellac.media">
+                        <td>{{media.description}} 
+                            <span ng-if="showMediaLink(media.file.src, 'pdf')"><a href="{{media.file.src}}" target="_blank">[View PDF]</a></span>
+                            <span ng-if="showMediaLink(media.file.src, 'image')"><a href="{{media.file.src}}" target="_blank">[View Image]</a></span>
+                            <span ng-if="showMediaLink(media.file.src, 'audio')">
+                                <audio controls />
+                                    <source src="{{media.file.src}}" type="audio/mpeg" />
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+        
+        <div id="music_detail_right_col" style="float: right; width: 47%;">
+            <div>
+                <label>Composer</label>
+                {{shellac.composer}}
+            </div>
+            
+            <div class="panel panel-default" style="margin-top: 30px;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Titles</h3>
+                </div>
+                <table class="table table-striped">
+                    <tr ng-repeat="t in shellac.titleportal">
+                        <td>
+                            <ng-model="t.title"><b>{{t.title}}</b>
+                        </td>
+                        <td>
+                            <ng-model="t.type"><b>{{t.type}}</b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div>
+                <label>Details</label>
+                {{shellac.details}}
+            </div>
+            
+            <div class="panel panel-default" style="margin-top: 30px;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Releases</h3>
+                </div>
+                <table class="table table-striped">
+                    <tr ng-repeat="r in shellac.releaseportal">
+                        <td>
+                            <ng-model="r.company"><b>{{r.company}}</b>
+                        </td>
+                        <td>
+                            <ng-model="r.catalog"><b>{{r.catalog}}</b>
+                        </td>
+                        <td>
+                            <ng-model="r.type"><b>{{r.type}}</b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div>
+                <label>References</label>
+                {{shellac.references}}
+            </div>
+            
+            <div style="float: right;">
+                <a ng-if="showHidePrevNext(prevTakeID)" href="#/take/{{prevTakeID}}?coy={{selectedCompany}}&com={{selectedComposer}}&ven={{selectedVenue}}&obf={{orderByArg1}},{{orderByArg2}},{{orderByArg3}}">&lt;&lt; Previous Take</a>
+                &nbsp; &nbsp;
+                <a ng-if="showHidePrevNext(nextTakeID)" href="#/take/{{nextTakeID}}?coy={{selectedCompany}}&com={{selectedComposer}}&ven={{selectedVenue}}&obf={{orderByArg1}},{{orderByArg2}},{{orderByArg3}}">Next Take &gt;&gt;</a>
+            </div>
+        </div>
+        <br style="clear: both;" />
+    </div>
+    <br style="clear: both;" />
+</div>
